@@ -1,3 +1,6 @@
+from classes.visitor import Visitor
+from classes.nationalpark import NationalPark
+
 class Trip:
     counter, catalog = 0, []
     def __init__(self, visitor, national_park, start_date=None, end_date=None):
@@ -17,8 +20,36 @@ class Trip:
         self.visitor = visitor
         self.national_park = national_park
 
+        visitor.access_current_trips(self)
+        visitor.access_current_parks(national_park)
+
+        national_park.access_current_trips(self)
+        national_park.access_current_visitors(visitor)
+
         Trip.counter += 1
         Trip.catalog.append(self)
+
+    @property
+    def visitor(self):
+        return self._visitor
+    
+    @visitor.setter
+    def visitor(self, visitor):
+        if isinstance(visitor, Visitor):
+            self._visitor = visitor
+        else:
+            raise TypeError("Not a visitor")
+
+    @property
+    def national_park(self):
+        return self._national_park
+    
+    @national_park.setter
+    def national_park(self, national_park):
+        if isinstance(national_park, NationalPark):
+            self._national_park = national_park
+        else:
+            raise TypeError("Not a national park")
 
     def __repr__(self):
         from datetime import datetime

@@ -38,7 +38,7 @@ class TestTrip:
         assert (trip2.national_park == park2)
 
     def test_park_of_type_park(self):
-        ''' Tests that a trip's visitor is of type `Visitor`. '''
+        ''' Tests that a trip's national_park is of type `NationalPark`. '''
         park = NationalPark("Grand Canyon")
         visitor = Visitor("Andrew")
         trip = Trip(visitor, park)
